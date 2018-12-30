@@ -2,17 +2,25 @@ import React from 'react'
 import { Button } from 'semantic-ui-react'
 import _ from 'lodash'
 import gameFunctions from './game-functions'
-console.log(gameFunctions)
+
 class TicTacToeBoard extends React.Component{
     state = {
-        board: gameFunctions.resetBoard(),
+        board: [
+            [' ', ' ', ' '],
+            [' ', ' ', ' '],
+            [' ', ' ', ' ']
+          ],
+        playerTurn: 'X',
+        counter: 0,
+        message: 'Tic-Tac-Toe'
     }
+    
     addMark(row, index){
         if(this.state.board[row][index] == ' '){
             let markedBoard = _.cloneDeep(this.state.board)
             markedBoard[row][index] = this.props.playerTurn
             this.setState({board: markedBoard})
-            // this.props.informParent(event.target.value)
+            this.ticTacToe(markedBoard, this.state.playerTurn, row, index)
         }
     }
 
@@ -26,10 +34,18 @@ class TicTacToeBoard extends React.Component{
             </td>
         })
     }
-    handleChange = event => {
-        this.setState({board: event.target.value });
-        this.props.informParent(event.target.value)
-      };
+
+    ticTacToe(board, playerTurn, row, column) {
+        board[row][column] = playerTurn;
+        gameFunctions.incrementCounter();
+        if (gameFunctions.checkForWin(this.state.board)) {
+          this.setState({message: {playerTurn} + ' won!'})
+        } 
+        if(gameFunctions.catsScratch()){
+          this.setState({message: 'Tie!'})
+        }
+        gameFunctions.switchPlayer();
+      }
     
     render() {
         return (

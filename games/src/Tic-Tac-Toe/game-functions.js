@@ -1,3 +1,6 @@
+// (markedBoard, this.state.playerTurn, row, index)
+
+
 function incrementCounter(counter) {
     return counter++
 }
@@ -14,28 +17,16 @@ const resetBoard = () => {
   ];
 }
 
-
-const isValidInput = (row, column) => {
-  const validInputs = [0, 1, 2];
-  const isValid = validInputs.indexOf(row) > -1 && validInputs.indexOf(column) > -1;
-  return isValid
-}
-
 const isOpenForPlay = (board, row, column) => {
   return board[row][column] === ' '
 }
 
-const checksArrayForPlayerWin = (playerTurn, arr) => {
-  return arr.every((item) => item === playerTurn)
+const checksRowForPlayerWin = (playerTurn, row) => {
+  return row.every((item) => item === playerTurn)
 }
 
-const checkMatrixForWin = (board) => {
-  let results = board.filter(checksArrayForPlayerWin);
-  return results.length > 0
-}
-
-const horizontalWin = (board) => {
-  return checkMatrixForWin(board);
+const horizontalWin = (playerTurn, row) => {
+  return checksRowForPlayerWin(playerTurn, row)
 }
 
 const rotateMatrix = (matrix) => {
@@ -68,32 +59,32 @@ const switchPlayer = (player) => {
   return this.setState({playerTurn: player})
 }
 
-function checkForWin() {
-  const horizontal = horizontalWin();
-  const vertical = verticalWin();
-  const diagonal = diagonalWin();
+function checkForWin(board, playerTurn, row, column) {
+  const horizontal = horizontalWin(playerTurn, row);
+  const vertical = verticalWin(board);
+  const diagonal = diagonalWin(board);
   return horizontal || vertical || diagonal
 }
 
-function ticTacToe(board, playerTurn, row, column) {
-  if(!isValidInput(row, column)){
-    return console.log('invalid entry, try again!')
-  }
-  if (!isOpenForPlay(row, column)) {
-    return console.log('Invalid move, try again!')
-  }
-  board[row][column] = playerTurn;
-  incrementCounter();
-  if (checkForWin()) {
-    console.log(`Player ${playerTurn} won!`)
-    board = resetBoard();
-  } 
-  if(catsScratch()){
-    console.log("It's a tie! Try again!")
-    board = resetBoard();
-  }
-  switchPlayer();
-}
+// function ticTacToe(board, playerTurn, row, column) {
+//   if(!isValidInput(row, column)){
+//     return console.log('invalid entry, try again!')
+//   }
+//   if (!isOpenForPlay(row, column)) {
+//     return console.log('Invalid move, try again!')
+//   }
+//   board[row][column] = playerTurn;
+//   incrementCounter();
+//   if (checkForWin()) {
+//     console.log(`Player ${playerTurn} won!`)
+//     board = resetBoard();
+//   } 
+//   if(catsScratch()){
+//     console.log("It's a tie! Try again!")
+//     board = resetBoard();
+//   }
+//   switchPlayer();
+// }
 
 // // function getPrompt() {
 // //   printBoard();
@@ -109,9 +100,8 @@ module.exports = {
     resetBoard,
     incrementCounter,
     catsScratch,
-    isValidInput,
     isOpenForPlay,
-    checksArrayForPlayerWin,
+    checksRowForPlayerWin,
     checkMatrixForWin,
     horizontalWin,
     rotateMatrix,
@@ -119,5 +109,5 @@ module.exports = {
     diagonalWin,
     switchPlayer,
     checkForWin,
-    ticTacToe,
+    // ticTacToe,
 }
