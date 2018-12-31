@@ -16,7 +16,7 @@ class TicTacToeBoard extends React.Component{
     }
     
     addMark(row, index){
-        if(this.state.board[row][index] == ' '){
+        if(this.state.board[row][index] === ' '){
             let markedBoard = _.cloneDeep(this.state.board)
             markedBoard[row][index] = this.props.playerTurn
             this.setState({board: markedBoard})
@@ -29,28 +29,51 @@ class TicTacToeBoard extends React.Component{
         return board.map((boardSquare, index) => {
             return <td key={`${row}-${index}`}>
             <Button onClick={() => this.addMark(row, index)} 
-            className='w4 h4 fw9 f2 avenir ba'>
+            className='w4 h4 avenir ba'>
             {boardSquare}</Button>
             </td>
         })
     }
 
+    switchPlayer(playerTurn){
+        let player = 'X'
+        if(playerTurn === 'X'){
+          player = 'O'
+        } else {
+          player = 'X'
+        }
+        this.setState({playerTurn: player})
+      }
+
     ticTacToe(board, playerTurn, row, column) {
+        console.log(board, playerTurn, row, column)
         board[row][column] = playerTurn;
         gameFunctions.incrementCounter();
-        if (gameFunctions.checkForWin(this.state.board)) {
-          this.setState({message: {playerTurn} + ' won!'})
+        if (gameFunctions.checkForWin(board, playerTurn, row, column)) {
+          this.setState({message: playerTurn + ' won!'})
         } 
         if(gameFunctions.catsScratch()){
           this.setState({message: 'Tie!'})
         }
-        gameFunctions.switchPlayer();
+        this.switchPlayer(playerTurn);
       }
+
+    newGame(){
+        this.setState({board: gameFunctions.resetBoard(),
+            message: 'Tic-Tac-Toe' })
+    }
     
     render() {
         return (
             <div>
-                <table>
+                <div className="flex">
+                <div className="w-50 pa3 ml2 mr2 tc f4 fw5">{this.state.message}</div>
+                    <Button  inverted color='teal' 
+                    className="w-25 pa3 mr2"
+                    onClick={() => this.newGame()}>
+                    Start New Game</Button>
+                </div>
+                <table className="mt3">
                     <tbody> 
                         <tr className="h4 w4">
                             {this.createBoard(0)}
