@@ -6,10 +6,11 @@ class Row extends React.Component{
         return (
             <div>
                 <div>
-                    <div className="dot bg-blue"></div>
-                    <div className="dot bg-blue"></div>
-                    <div className="dot bg-blue"></div>
-                    <div className="dot bg-blue"></div>
+                    {/* bg-color */}
+                    <button className="dot bg-white"></button>
+                    <button className="dot bg-white"></button>
+                    <button className="dot bg-white"></button>
+                    <button className="dot bg-white"></button>
                 </div>
             </div>
         );

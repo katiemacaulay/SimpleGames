@@ -24,10 +24,10 @@ class RockPaper extends React.Component{
     render() {
         return (
             <div className="App-header">
-                <div>{this.state.message}</div>
+                {/* <div>{this.state.message}</div>
                 <Button>Play against the computer</Button>
-                <Button>Play 2 player</Button>
-                this will be a game of Rock, Paper, Scissors
+                <Button>Play 2 player</Button> */}
+                Coming soon! Rock, Paper, Scissors
             </div>
         );
       }
