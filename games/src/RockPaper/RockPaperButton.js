@@ -6,7 +6,7 @@ const RockPaperScissorsButton = () => (
     <Button size='big' animated>
       <Button.Content visible>Rock, Paper</Button.Content>
       <Button.Content hidden>
-        <i class="hand scissors icon"></i>
+        <i className="hand scissors icon"></i>
       </Button.Content>
     </Button>
   </div>

@@ -12,7 +12,6 @@ import RockPaper from "./RockPaper/RockPaper";
 import MasterMindButton from "./MasterMind/MasterMindButton";
 import MasterMind from "./MasterMind/MasterMind"
 
-const Users = () => <h2>Users</h2>;
 
 const AppRouter = () => (
   <div>
