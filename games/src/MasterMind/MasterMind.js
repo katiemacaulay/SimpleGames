@@ -41,7 +41,7 @@ handleClick(item, rowIndex) {
 }
 makeRows(){
     return this.state.board.map((row, i) => {
-        return <div  key={i} > {row.map((item, turn) => {
+        return <div key={i} > {row.map((item, turn) => {
             return <button key={turn-1} 
                 onClick={() => this.handleClick(item, i)} 
                 className={item.colorClass}>
